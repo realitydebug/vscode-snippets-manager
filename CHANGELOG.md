@@ -1,3 +1,7 @@
+# v0.3.17
+
+- Add feature manage user snippets of profiles. [PR #40](https://github.com/zjffun/vscode-snippets-manager/pull/40)
+
 # v0.3.16
 
 - [@DMC09 (Dharmin Chauhan)](https://github.com/DMC09): Add's Easy Copy Functionality for snippets. [PR #37](https://github.com/zjffun/vscode-snippets-manager/pull/37)
