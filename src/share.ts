@@ -17,6 +17,15 @@ export let context: vscode.ExtensionContext;
 export const setContext = (c: vscode.ExtensionContext) => (context = c);
 
 export const getUserFolderUri = () =>
-  vscode.Uri.joinPath(context.globalStorageUri, "../../snippets");
+  vscode.Uri.joinPath(context?.globalStorageUri, "../../snippets");
+
+export const getStorageJsonUri = () =>
+  vscode.Uri.joinPath(
+    context?.globalStorageUri,
+    "../../globalStorage/storage.json",
+  );
+
+export const getProfilesFolderUri = () =>
+  vscode.Uri.joinPath(context?.globalStorageUri, "../../profiles");
 
 export const isBrowser = vscode.env.appHost !== "desktop";
