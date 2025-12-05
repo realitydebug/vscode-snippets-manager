@@ -23,10 +23,39 @@ jobs:
           yarn run compile
           yarn run compile-web
       
-      - name: Create GitHub Release (Optional)
-        if: startsWith(github.ref, 'refs/tags/v')
-        uses: softprops/action-gh-release@v1
+      # - name: Create GitHub Release (Optional)
+      #   if: startsWith(github.ref, 'refs/tags/v')
+      #   uses: softprops/action-gh-release@v1
+      #   with:
+      #     generate_release_notes: true
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Package extension
+        id: package
+        run: |
+          npx vsce package --yarn
+          vsix_file=$(ls *.vsix)
+          echo "vsix_name=${vsix_file}" >> $GITHUB_OUTPUT
+          echo "vsix_size=$(wc -c < "${vsix_file}")" >> $GITHUB_OUTPUT
+      
+      - name: Upload VSIX
+        uses: actions/upload-artifact@v3
         with:
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          name: extension-vsix
+          path: "${{ steps.package.outputs.vsix_name }}"
+      
+      # - name: Display download info
+      #   run: |
+      #     echo "✅ 构建完成!"
+      #     echo "📦 文件: ${{ steps.package.outputs.vsix_name }}"
+      #     echo "📏 大小: $(( ${{ steps.package.outputs.vsix_size }} / 1024 / 1024 )) MB"
+      #     echo ""
+      #     echo "👇 下载方式:"
+      #     echo "1. 点击上方 'Summary' 标签页"
+      #     echo "2. 在 'Artifacts' 区域找到 'extension-vsix'"
+      #     echo "3. 点击下载扩展文件"
+      #     echo ""
+      #     echo "💡 安装方法:"
+      #     echo "   - 在 VS Code 中: Ctrl+Shift+P → 'Extensions: Install from VSIX'"
+      #     echo "   - 命令行: code --install-extension ${{ steps.package.outputs.vsix_name }}"
