@@ -1,4 +1,6 @@
 # Snippets Manager
+The dark high-contrast theme was hard to see, so I adjusted the text and button colors.
+
 
 English | [简体中文](./README.zh-CN.md)
 
