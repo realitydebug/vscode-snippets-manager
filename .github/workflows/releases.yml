@@ -46,7 +46,10 @@ jobs:
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: build-$(date +%Y%m%d-%H%M%S)
+          name: "Build $(date +'%Y-%m-%d %H:%M:%S')"
           files: |
             *.vsix
+          generate_release_notes: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUBTOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
