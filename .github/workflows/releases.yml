@@ -43,11 +43,11 @@ jobs:
       #   with:
       #     name: vscode-snippets-manager
       #     path: "${{ steps.package.outputs.vsix_name }}"
-      - name: Upload to Release
+      - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: build-$(date +%Y%m%d-%H%M%S)
-          name: "Build $(date +'%Y-%m-%d %H:%M:%S')"
+          tag_name: ${{ github.run_id }}-${{ github.run_attempt }}
+          name: "Build #${{ github.run_number }}"
           files: |
             *.vsix
           generate_release_notes: true
